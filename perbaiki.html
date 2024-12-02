@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contoh Perbaiki Cookies</title>
+</head>
+<body>
+  <h1>Selamat datang di halaman web saya</h1>
+
+  <!-- Konten halaman lainnya -->
+
+  <!-- Menambahkan script untuk mendeteksi dan memperbaiki cookies -->
+  <script>
+    (function () {
+      // Fungsi untuk memeriksa apakah cookies diaktifkan
+      function areCookiesEnabled() {
+        document.cookie = "test_cookie=1; SameSite=Lax";
+        const cookiesEnabled = document.cookie.indexOf("test_cookie=1") !== -1;
+        document.cookie = "test_cookie=1; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Lax";
+        return cookiesEnabled;
+      }
+
+      // Fungsi untuk memperbarui cookies tanpa menghapus cookies penting
+      function updateCookies() {
+        const cookies = document.cookie.split("; ");
+        cookies.forEach(cookie => {
+          const [name, value] = cookie.split("=");
+          
+          // Abaikan cookies penting (contoh: 'session' atau 'auth')
+          if (name === "session" || name === "auth") {
+            console.log(`Cookie ${name} dipertahankan.`);
+            return;
+          }
+
+          // Perbarui cookies lainnya dengan pengaturan baru
+          document.cookie = `${name}=${value}; path=/; SameSite=Lax; Secure`;
+        });
+
+        console.log("Cookies telah diperbarui tanpa menghapus cookies autentikasi.");
+      }
+
+      // Deteksi cookies
+      if (areCookiesEnabled()) {
+        console.log("Cookies diaktifkan.");
+        updateCookies();
+      } else {
+        console.log("Cookies tidak aktif atau dibatasi. Harap aktifkan cookies di pengaturan browser.");
+      }
+    })();
+  </script>
+</body>
+</html>
